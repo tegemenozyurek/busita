@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine'
+  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu'
   const [timer, setTimer] = useState(15);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [showBackMessage, setShowBackMessage] = useState(false);
@@ -111,7 +111,11 @@ function App() {
   ];
 
   const handleEventSelect = (event) => {
-    alert(`Seçilen olay: ${event}\n\nBu olaya gidiliyor...`);
+    if (event === "Fuar Günü") {
+      setCurrentPage('fuar-gunu');
+    } else {
+      alert(`Seçilen olay: ${event}\n\nBu olaya gidiliyor...`);
+    }
   };
 
   const handleSwipeUp = () => {
@@ -124,6 +128,10 @@ function App() {
     setCurrentEventIndex((prevIndex) => 
       prevIndex === 0 ? timeEvents.length - 1 : prevIndex - 1
     );
+  };
+
+  const handleBackToTimeMachine = () => {
+    setCurrentPage('timemachine');
   };
 
 
@@ -145,7 +153,6 @@ function App() {
               <ul className="info-list">
                 <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
                 <li>Ayrıca Block Blast'ten çok daha iyi</li>
-                <li>Farklı sonları görmek için bi kaç kere oynayıp farklı şeyleri seçebilirsin</li>
                 <li>Biraz metin tabanlı ama umarım seversin</li>
               </ul>
             </div>
@@ -201,6 +208,61 @@ function App() {
     </div>
   );
 
+  const renderFuarGunuPage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Fuar Fecesi Egemen'in hissettikleri</h1>
+        <div className="fuar-gunu-text">
+          <p>Fuar günü Egemen çok ateşli, resmen bok gibi hasta. Bir önceki gün yataktan kalkamamıştı ama bu gece beş saat kadar ayakta duruyor. Yaptığı iş orada bilgisayardan çok fiziksel; aşırı yorgun ve stresli.</p>
+          
+          <p>Kız arkadaşı Buse ile iletişime geçmeye çalışıyor. Online olsa da yazmadığını görüyor. "Ben hastayım, çalışıyorum; o evde ve tek kelime yazdıkları dışında umursamıyor bile." diye düşünüyor. Egemen bunları konuşmak istiyor çünkü ortada ciddi bir sıkıntı var.</p>
+          
+          <p>Fuardan çıkar çıkmaz mesaj bombardımanı yapıyor. Buse çevrimiçi olmasına rağmen dönmüyor ve en sonunda sadece "İzninle ders seçiyorum." notuyla bir fotoğraf geliyor. Egemen kırılıyor.</p>
+          
+          <p>Egemen biraz hızlı kırılıyor, çünkü bunu diyen kişiye değer veriyor. Eve gidiyor, tavırlı bir "İyi geceler." mesajı yazıp uyuyor.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleBackToTimeMachine}
+        >
+          Değiştir
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderOnboardingPage = (pageNumber, title, content) => (
     <div className="onboarding-page">
       {/* Info button */}
@@ -219,7 +281,6 @@ function App() {
               <ul className="info-list">
                 <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
                 <li>Ayrıca Block Blast'ten çok daha iyi</li>
-                <li>Farklı sonları görmek için bi kaç kere oynayıp farklı şeyleri seçebilirsin</li>
                 <li>Biraz metin tabanlı ama umarım seversin</li>
               </ul>
             </div>
@@ -294,7 +355,6 @@ function App() {
                   <ul className="info-list">
                     <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
                     <li>Ayrıca Block Blast'ten çok daha iyi</li>
-                    <li>Farklı sonları görmek için bi kaç kere oynayıp farklı şeyleri seçebilirsin</li>
                     <li>Biraz metin tabanlı ama umarım seversin</li>
                   </ul>
                 </div>
@@ -354,9 +414,11 @@ function App() {
         "Artık zaman yolculuğuna başlamaya hazırsın! Farklı sonları keşfetmek için oyunu birkaç kez oynayabilirsin. Her oynayışında yeni şeyler keşfedeceksin."
       )}
 
-      {currentPage === 'timemachine' && renderTimeMachinePage()}
-    </div>
-  );
-}
+              {currentPage === 'timemachine' && renderTimeMachinePage()}
 
-export default App;
+              {currentPage === 'fuar-gunu' && renderFuarGunuPage()}
+            </div>
+          );
+        }
+
+        export default App;
