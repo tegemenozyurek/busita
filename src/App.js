@@ -481,15 +481,15 @@ function App() {
     <div 
       className="sad-ending-page"
       style={{
-        backgroundImage: 'url(/sad.jpg)'
+        backgroundImage: `url(${process.env.PUBLIC_URL}/sad.jpg)`
       }}
     >
       {/* Background music */}
       <audio autoPlay loop>
-        <source src="/sad.mp3" type="audio/mpeg" />
+        <source src={`${process.env.PUBLIC_URL}/sad.mp3`} type="audio/mpeg" />
       </audio>
       <audio autoPlay loop>
-        <source src="/ardaSad.mp3" type="audio/mpeg" />
+        <source src={`${process.env.PUBLIC_URL}/ardaSad.mp3`} type="audio/mpeg" />
       </audio>
       
       {/* Info button */}
@@ -564,12 +564,12 @@ function App() {
     <div 
       className="happy-ending-page"
       style={{
-        backgroundImage: 'url(/happy.jpeg)'
+        backgroundImage: `url(${process.env.PUBLIC_URL}/happy.jpeg)`
       }}
     >
       {/* Background music */}
       <audio autoPlay loop>
-        <source src="/happy.mp3" type="audio/mpeg" />
+        <source src={`${process.env.PUBLIC_URL}/happy.mp3`} type="audio/mpeg" />
       </audio>
       
       {/* Info button */}
