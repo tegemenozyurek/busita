@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/busita/static/css/main.12cab4b4.css",
-    "main.js": "/busita/static/js/main.35a39de6.js",
+    "main.js": "/busita/static/js/main.35fc34a6.js",
     "static/js/453.f740d309.chunk.js": "/busita/static/js/453.f740d309.chunk.js",
     "index.html": "/busita/index.html",
     "main.12cab4b4.css.map": "/busita/static/css/main.12cab4b4.css.map",
-    "main.35a39de6.js.map": "/busita/static/js/main.35a39de6.js.map",
+    "main.35fc34a6.js.map": "/busita/static/js/main.35fc34a6.js.map",
     "453.f740d309.chunk.js.map": "/busita/static/js/453.f740d309.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.12cab4b4.css",
-    "static/js/main.35a39de6.js"
+    "static/js/main.35fc34a6.js"
   ]
 }
