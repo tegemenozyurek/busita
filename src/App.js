@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page'
+  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending'
   const [timer, setTimer] = useState(15);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [showBackMessage, setShowBackMessage] = useState(false);
@@ -13,6 +13,7 @@ function App() {
   const [isShaking, setIsShaking] = useState(false);
   const [isHeartBroken, setIsHeartBroken] = useState(false);
   const [buttonsLocked, setButtonsLocked] = useState(false);
+  const [showRestartPopup, setShowRestartPopup] = useState(false);
 
   const sunflowerEmojis = ['🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻'];
 
@@ -152,6 +153,24 @@ function App() {
     setButtonsLocked(false);
   };
 
+  const handleSadEnding = () => {
+    setCurrentPage('sad-ending');
+  };
+
+  const handleRestartClick = () => {
+    setShowRestartPopup(true);
+  };
+
+  const handleRestartYes = () => {
+    setCurrentPage('landing');
+    setShowRestartPopup(false);
+  };
+
+  const handleRestartNo = () => {
+    setCurrentPage('timemachine');
+    setShowRestartPopup(false);
+  };
+
   const handleNoButtonClick = () => {
     if (buttonsLocked) return;
     
@@ -173,7 +192,7 @@ function App() {
         setButtonsLocked(false);
       }, 4000);
     } else {
-      handleBackToTimeMachine();
+      handleSadEnding();
     }
   };
 
@@ -434,6 +453,89 @@ function App() {
     </div>
   );
 
+  const renderSadEndingPage = () => (
+    <div 
+      className="sad-ending-page"
+      style={{
+        backgroundImage: 'url(/sad.jpg)'
+      }}
+    >
+      {/* Background music */}
+      <audio autoPlay loop>
+        <source src="/sad.mp3" type="audio/mpeg" />
+      </audio>
+      <audio autoPlay loop>
+        <source src="/ardaSad.mp3" type="audio/mpeg" />
+      </audio>
+      
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="sad-ending-content">
+        <h1 className="sad-ending-title">Hayat bitti...</h1>
+        <p className="sad-ending-text">Bazı 'hayır'lar, içten içe 'keşke'lerle yanar.</p>
+        
+        <button 
+          className="restart-button"
+          onClick={handleRestartClick}
+        >
+          Baştan Başla
+        </button>
+      </div>
+
+      {/* Restart popup */}
+      {showRestartPopup && (
+        <div className="restart-popup-overlay" onClick={handleRestartNo}>
+          <div className="restart-popup" onClick={(e) => e.stopPropagation()}>
+            <h2 className="restart-popup-title">HERŞEYE BAŞTAN MI BAŞLAYALIM YOKSA???? :))))</h2>
+            <div className="restart-popup-buttons">
+              <button 
+                className="restart-popup-yes"
+                onClick={handleRestartYes}
+              >
+                EVET
+              </button>
+              <button 
+                className="restart-popup-no"
+                onClick={handleRestartNo}
+              >
+                Hayır zaman makinesine dön
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderOnboardingPage = (pageNumber, title, content) => (
     <div className="onboarding-page">
       {/* Info button */}
@@ -592,6 +694,8 @@ function App() {
               {currentPage === 'egemen-bilmiyordu' && renderEgemenBilmiyorduPage()}
 
               {currentPage === 'next-page' && renderNextPage()}
+
+              {currentPage === 'sad-ending' && renderSadEndingPage()}
             </div>
           );
         }
