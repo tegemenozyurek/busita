@@ -76,9 +76,14 @@ function App() {
           <div className="info-modal-overlay" onClick={closeInfo}>
             <div className="info-modal" onClick={(e) => e.stopPropagation()}>
               <button className="close-button" onClick={closeInfo}>×</button>
-              <p className="info-text">
-                Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.
-              </p>
+              <div className="info-text">
+                <ul className="info-list">
+                  <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                  <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                  <li>Farklı sonları görmek için bi kaç kere oynayıp farklı şeyleri seçebilirsin</li>
+                  <li>Biraz metin tabanlı ama umarım seversin</li>
+                </ul>
+              </div>
             </div>
           </div>
         )}
