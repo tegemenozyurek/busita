@@ -761,14 +761,14 @@ function App() {
 
       {currentPage === 'onboarding2' && renderOnboardingPage(
         2,
-        "Nasıl Oynanır?",
-        "Oyunda karşına çıkan seçeneklerden birini seçeceksin. Her seçim seni farklı bir yola götürecek. Merak etme, yanlış seçim yok - sadece farklı hikayeler var!"
+        "Valla Pişmanım",
+        "kafamı sikim"
       )}
 
       {currentPage === 'onboarding3' && renderOnboardingPage(
         3,
         "Hazır mısın?",
-        "Artık zaman yolculuğuna başlamaya hazırsın! Farklı sonları keşfetmek için oyunu birkaç kez oynayabilirsin. Her oynayışında yeni şeyler keşfedeceksin."
+        "Umarım seversin 🥹"
       )}
 
               {currentPage === 'timemachine' && renderTimeMachinePage()}
