@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending', 'happy-ending', 'fuar-ertesi-sabah', 'fuar-ertesi-alternative'
+  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending', 'happy-ending', 'fuar-ertesi-sabah', 'fuar-ertesi-alternative', 'yazdin-gun', 'yazdin-gun-alternative', 'ertesi-gun', 'ertesi-gun-alternative', 'gecmis-cmt', 'gecmis-cmt-alternative'
   const [timer, setTimer] = useState(15);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [showBackMessage, setShowBackMessage] = useState(false);
@@ -122,6 +122,12 @@ function App() {
       setCurrentPage('fuar-gunu');
     } else if (event === "Fuar Gününün Ertesi Sabahı") {
       setCurrentPage('fuar-ertesi-sabah');
+    } else if (event === "Yazdığın Gün") {
+      setCurrentPage('yazdin-gun');
+    } else if (event === "Ertesi gün (buluşma)") {
+      setCurrentPage('ertesi-gun');
+    } else if (event === "Geçtiğimiz Cmt") {
+      setCurrentPage('gecmis-cmt');
     } else {
       alert(`Seçilen olay: ${event}\n\nBu olaya gidiliyor...`);
     }
@@ -174,6 +180,18 @@ function App() {
 
   const handleFuarErtesiAlternative = () => {
     setCurrentPage('fuar-ertesi-alternative');
+  };
+
+  const handleYazdinGunAlternative = () => {
+    setCurrentPage('yazdin-gun-alternative');
+  };
+
+  const handleErtesiGunAlternative = () => {
+    setCurrentPage('ertesi-gun-alternative');
+  };
+
+  const handleGecmisCmtAlternative = () => {
+    setCurrentPage('gecmis-cmt-alternative');
   };
 
   const handleRestartNo = () => {
@@ -751,6 +769,375 @@ function App() {
     </div>
   );
 
+  const renderYazdinGunPage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Yazdığın Gün Egemen'in Hissettikleri</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen, Buse'nin yazmayacağını; eğer yazarsa 22'si veya 23'ünde yazacağını biliyordu. (Harbiden arkadaşlara falan da hep dedim, "şu tarihler kritik" diye.)</p>
+          
+          <p>Almanca dersinin tam ortasında Buse'den bir mesaj alan Egemen, bütün ders boyunca mutluluktan piç piç sırıttı. Olmuştu işte; problemi çözebileceklerdi.</p>
+          
+          <p>Ama Egemen bazen bir tık mal olabiliyordu. Buse'nin tekrar konuşmak için mi yazdığını tam anlayamamıştı. Çok mutlu olsa bile emin olmak için sordu. Bir tık kabaydı da… Bunu çok geç fark edecekti.</p>
+          
+          <p>Egemen kararlıydı; Buse'nin konuşmak istediğine inanmak ve bunu onun ağzından duymak istiyordu. Ancak bunu başaramadı. Egemen'e tekrar yazılması yetmemişti. Green flag'i aldı, götüne soktu… Buse'nin hevesini kırdı.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleYazdinGunAlternative}
+        >
+          Değiştir
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderYazdinGunAlternativePage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rain of sunflowers */}
+      <div className="rain-container">
+        {sunflowerEmojis.map((sunflower, index) => (
+          <div
+            key={index}
+            className="rain-text sunflower-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            {sunflower}
+          </div>
+        ))}
+      </div>
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Egemen akıllı ol</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen tekrar barışmak için kaçırdığı fırsattan aşırı bir haberdi. Ancak gelecekte olanları gördü. Bu sefer Buse yazınca ona eskileri açmak yerine samimi ve tatlı cevaplar verdi.</p>
+          
+          <p>Buse'nin İzmir'e gelmesiyle de hemen hemen denk olduğuna inandığımız bu gün buluşan çift birasını içti keyfine baktı.</p>
+          
+          <p>GG WP O7</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleNextToNewPage}
+        >
+          İlerle
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderErtesiGunPage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Buluşma Günü Egemen'in Hissettikleri</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen, bir önceki çok kötü kapanan günün ardından bir şeyler yapmalıydı. Kafası karman çormandı; sevdiği insanla günler sonra tekrar konuşmuş ve yine bloklanmıştı. Bu işi bitirmeliydi — hem de bir mesajla olmamalıydı.</p>
+          
+          <p>Bunu Buse ile paylaştı ve görüşmek üzere anlaştılar. Egemen buluşma yerine gidip yaklaşık üç saat boyunca Buse'yi bekledi. Kafasında, yüz yüze her şeyi halledebileceklerine dair büyük umutlar vardı. Ama Buse istemez belki diye eşyalarını da getirmişti.</p>
+          
+          <p>Buse'nin gelmeyeceğini ve bunun sebebini öğrenemeyen Egemen çok düştü. O gün, Buse'ye ilk defa saygısız laflar etti.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleErtesiGunAlternative}
+        >
+          Değiştir
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderErtesiGunAlternativePage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rain of sunflowers */}
+      <div className="rain-container">
+        {sunflowerEmojis.map((sunflower, index) => (
+          <div
+            key={index}
+            className="rain-text sunflower-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            {sunflower}
+          </div>
+        ))}
+      </div>
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Başka gün buluşma</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen bunların hepsini yaşadı. Ancak artık bir zaman makinesi vardı. Buse'yi buluşmak için biraz zorladığını, hatta belki emrivaki yaptığını fark etmişti.</p>
+          
+          <p>Bu sefer sadece iki kere sordu buluşup buluşmamak konusunu. Buse ise ilk başta "hayır" dese de sonra kabul etti. Daha uygun bir günde Egemen, bu kez Bornova tarafına geldi.</p>
+          
+          <p>Yüz yüze geldiklerinde, Buse'nin kararı ne olacaktı…?</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleNextToNewPage}
+        >
+          İlerle
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderGecmisCmtPage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Amk Cumartesisi</h1>
+        <div className="fuar-gunu-text">
+          <p>Şu siktimin cumartesi günü… Egemen de Buse de çok kabaydı. Kaba olabilirsin ama hakaret etmek ne mk, Egemen'i…</p>
+          
+          <p>O gün Egemen, Felipe Melo'nun üstüne atlayan Volkan Demirel gibiydi. Her denilene kudurdu ve çirkinleşti. Kendisine söylenen — özellikle "Üzüldüğüm geceler oldu."ya karşı aldığı "Tüh." cevabı ve "Ruh eşim diyordun." cümlesi — Egemen'i Hulk'a dönüştürdü. Ağzına geleni söyledi.</p>
+          
+          <p>Egemen çok pişman… Egemen çok üzgün…</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleGecmisCmtAlternative}
+        >
+          Değiştir
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderGecmisCmtAlternativePage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rain of sunflowers */}
+      <div className="rain-container">
+        {sunflowerEmojis.map((sunflower, index) => (
+          <div
+            key={index}
+            className="rain-text sunflower-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            {sunflower}
+          </div>
+        ))}
+      </div>
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Tek çare</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen bütün dediklerinden büyük pişman (Buse demişti pişman olursun diye, haklıydı). O gün hiç konuşmamalılardı. Egemen geçmişteki kendini gördü.</p>
+          
+          <p>Tam yazarken telefonunu alıp denize attı. Egemen telefonsuz kaldı ve asla böyle şeyler yazamadı.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleNextToNewPage}
+        >
+          İlerle
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderOnboardingPage = (pageNumber, title, content) => (
     <div className="onboarding-page">
       {/* Info button */}
@@ -917,6 +1304,18 @@ function App() {
               {currentPage === 'fuar-ertesi-sabah' && renderFuarErtesiSabahPage()}
 
               {currentPage === 'fuar-ertesi-alternative' && renderFuarErtesiAlternativePage()}
+
+              {currentPage === 'yazdin-gun' && renderYazdinGunPage()}
+
+              {currentPage === 'yazdin-gun-alternative' && renderYazdinGunAlternativePage()}
+
+              {currentPage === 'ertesi-gun' && renderErtesiGunPage()}
+
+              {currentPage === 'ertesi-gun-alternative' && renderErtesiGunAlternativePage()}
+
+              {currentPage === 'gecmis-cmt' && renderGecmisCmtPage()}
+
+              {currentPage === 'gecmis-cmt-alternative' && renderGecmisCmtAlternativePage()}
             </div>
           );
         }
