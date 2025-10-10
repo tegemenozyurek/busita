@@ -61,9 +61,6 @@ function App() {
     }, 3000);
   };
 
-  const handleBackToLanding = () => {
-    setCurrentPage('landing');
-  };
 
   const apologies = [
     { text: "Özür dilerim", lang: "Türkçe" },
