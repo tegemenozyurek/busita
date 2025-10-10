@@ -145,10 +145,6 @@ function App() {
     );
   };
 
-  const handleBackToTimeMachine = () => {
-    if (buttonsLocked) return;
-    setCurrentPage('timemachine');
-  };
 
   const handleChangeToAlternative = () => {
     setCurrentPage('egemen-bilmiyordu');
