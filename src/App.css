@@ -1299,6 +1299,59 @@
   }
 }
 
+/* Happy Ending Page Styles */
+.happy-ending-page {
+  min-height: 100vh;
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.happy-ending-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.happy-ending-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.happy-ending-title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 2rem;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 2s ease-in-out;
+}
+
+.happy-ending-text {
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  margin-bottom: 3rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  max-width: 600px;
+  line-height: 1.6;
+  animation: fadeIn 2s ease-in-out 0.5s both;
+}
+
 @media (max-width: 768px) {
   .quotes-section {
     padding: 1.5rem 1rem;
@@ -1451,6 +1504,14 @@
   .restart-popup-yes, .restart-popup-no {
     padding: 0.7rem 1.2rem;
     font-size: 1rem;
+  }
+  
+  .happy-ending-title {
+    font-size: 3rem;
+  }
+  
+  .happy-ending-text {
+    font-size: 1.3rem;
   }
 }
 
@@ -1636,5 +1697,13 @@
   .restart-popup-yes, .restart-popup-no {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
+  }
+  
+  .happy-ending-title {
+    font-size: 2.5rem;
+  }
+  
+  .happy-ending-text {
+    font-size: 1.1rem;
   }
 }

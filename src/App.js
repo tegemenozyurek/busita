@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending'
+  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending', 'happy-ending'
   const [timer, setTimer] = useState(15);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [showBackMessage, setShowBackMessage] = useState(false);
@@ -162,8 +162,12 @@ function App() {
   };
 
   const handleRestartYes = () => {
-    setCurrentPage('landing');
+    setCurrentPage('happy-ending');
     setShowRestartPopup(false);
+  };
+
+  const handleHappyEnding = () => {
+    setCurrentPage('happy-ending');
   };
 
   const handleRestartNo = () => {
@@ -430,7 +434,7 @@ function App() {
         <div className="button-container">
           <button 
             className="yes-button"
-            onClick={handleBackToTimeMachine}
+            onClick={handleHappyEnding}
           >
             EVET
           </button>
@@ -500,6 +504,86 @@ function App() {
           onClick={handleRestartClick}
         >
           Baştan Başla
+        </button>
+      </div>
+
+      {/* Restart popup */}
+      {showRestartPopup && (
+        <div className="restart-popup-overlay" onClick={handleRestartNo}>
+          <div className="restart-popup" onClick={(e) => e.stopPropagation()}>
+            <h2 className="restart-popup-title">HERŞEYE BAŞTAN MI BAŞLAYALIM YOKSA???? :))))</h2>
+            <div className="restart-popup-buttons">
+              <button 
+                className="restart-popup-yes"
+                onClick={handleRestartYes}
+              >
+                EVET
+              </button>
+              <button 
+                className="restart-popup-no"
+                onClick={handleRestartNo}
+              >
+                Hayır zaman makinesine dön
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderHappyEndingPage = () => (
+    <div 
+      className="happy-ending-page"
+      style={{
+        backgroundImage: 'url(/happy.jpeg)'
+      }}
+    >
+      {/* Background music */}
+      <audio autoPlay loop>
+        <source src="/happy.mp3" type="audio/mpeg" />
+      </audio>
+      
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="happy-ending-content">
+        <h1 className="happy-ending-title">Mutlu Son! 🎉</h1>
+        <p className="happy-ending-text">Evet demek cesarettir; çünkü sorumluluk yüklenmektir.</p>
+        
+        <button 
+          className="restart-button"
+          onClick={() => setCurrentPage('landing')}
+        >
+          Çok TŞK &lt;3
         </button>
       </div>
 
@@ -696,6 +780,8 @@ function App() {
               {currentPage === 'next-page' && renderNextPage()}
 
               {currentPage === 'sad-ending' && renderSadEndingPage()}
+
+              {currentPage === 'happy-ending' && renderHappyEndingPage()}
             </div>
           );
         }
