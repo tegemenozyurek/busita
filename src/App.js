@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending', 'happy-ending'
+  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page', 'sad-ending', 'happy-ending', 'fuar-ertesi-sabah', 'fuar-ertesi-alternative'
   const [timer, setTimer] = useState(15);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [showBackMessage, setShowBackMessage] = useState(false);
@@ -120,6 +120,8 @@ function App() {
   const handleEventSelect = (event) => {
     if (event === "Fuar Günü") {
       setCurrentPage('fuar-gunu');
+    } else if (event === "Fuar Gününün Ertesi Sabahı") {
+      setCurrentPage('fuar-ertesi-sabah');
     } else {
       alert(`Seçilen olay: ${event}\n\nBu olaya gidiliyor...`);
     }
@@ -168,6 +170,10 @@ function App() {
 
   const handleHappyEnding = () => {
     setCurrentPage('happy-ending');
+  };
+
+  const handleFuarErtesiAlternative = () => {
+    setCurrentPage('fuar-ertesi-alternative');
   };
 
   const handleRestartNo = () => {
@@ -300,7 +306,7 @@ function App() {
       )}
 
       <div className="fuar-gunu-content">
-        <h1 className="fuar-gunu-title">Fuar Fecesi Egemen'in hissettikleri</h1>
+        <h1 className="fuar-gunu-title">Fuar Gecesi Egemen'in hissettikleri</h1>
         <div className="fuar-gunu-text">
           <p>Fuar günü Egemen çok ateşli, resmen bok gibi hasta. Bir önceki gün yataktan kalkamamıştı ama bu gece beş saat kadar ayakta duruyor. Yaptığı iş orada bilgisayardan çok fiziksel; aşırı yorgun ve stresli.</p>
           
@@ -620,6 +626,131 @@ function App() {
     </div>
   );
 
+  const renderFuarErtesiSabahPage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Fuar Gününün Ertesi Sabah Egemen'in Hissettikleri</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen sabah kalktı ve telefonunda sadece "Oha, abart." yazısını gördü. Buna çok içerledi. Evden çıkıp işe gelene kadar kafasında,</p>
+          
+          <p>"Bu olanlara karşı sadece bunu mu yazıyor? Gram umursamıyor lan beni!" tarzında düşünceler dönüp duruyordu.</p>
+          
+          <p>İşe gelmesine iki dakika kala, WhatsApp'tan o lanet bloklama hareketini yaptı. Buse, Instagram'dan ulaşmaya çalıştı — blok. Snapchat'ten yazdı — blok. En son TikTok'tan gergin bir konuşma, ardından ise Instagram'da devam eden ayrılık mesajları geldi.</p>
+          
+          <p>Egemen, Instagram'daki konuşmadan şunu çıkarmıştı: "Ben bir bok yedim ama özür dileyip barışmak istesem de bu kız bunu istemiyor. Ben bloklamasam bile zaten bunu düşünüyordu."</p>
+          
+          <p>Çok üzücü olsa bile, gitmeliydi. Gururlu olmalıydı.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleFuarErtesiAlternative}
+        >
+          Değiştir
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderFuarErtesiAlternativePage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rain of sunflowers */}
+      <div className="rain-container">
+        {sunflowerEmojis.map((sunflower, index) => (
+          <div
+            key={index}
+            className="rain-text sunflower-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            {sunflower}
+          </div>
+        ))}
+      </div>
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Egemen hata yapmıştı...</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen gelecekte olanları gördü. Geçmişe döndü. Sabah kalkınca: "Günaydın, konuşabilir miyiz? Dünden beri olanlar çok üzücü bir sıkıntı mı var?" diyerek konuyu açtı.</p>
+          
+          <p>Çift bu problemi çerez niyetine yedi ve yoluna devam etti.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleNextToNewPage}
+        >
+          İlerle
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderOnboardingPage = (pageNumber, title, content) => (
     <div className="onboarding-page">
       {/* Info button */}
@@ -782,6 +913,10 @@ function App() {
               {currentPage === 'sad-ending' && renderSadEndingPage()}
 
               {currentPage === 'happy-ending' && renderHappyEndingPage()}
+
+              {currentPage === 'fuar-ertesi-sabah' && renderFuarErtesiSabahPage()}
+
+              {currentPage === 'fuar-ertesi-alternative' && renderFuarErtesiAlternativePage()}
             </div>
           );
         }
