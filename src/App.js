@@ -4,11 +4,17 @@ import { useState, useEffect } from 'react';
 function App() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu'
+  const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'onboarding1', 'onboarding2', 'onboarding3', 'timemachine', 'fuar-gunu', 'egemen-bilmiyordu', 'next-page'
   const [timer, setTimer] = useState(15);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [showBackMessage, setShowBackMessage] = useState(false);
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [noButtonClicks, setNoButtonClicks] = useState(0);
+  const [isShaking, setIsShaking] = useState(false);
+  const [isHeartBroken, setIsHeartBroken] = useState(false);
+  const [buttonsLocked, setButtonsLocked] = useState(false);
+
+  const sunflowerEmojis = ['🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻', '🌻'];
 
   const handleStart = () => {
     setCurrentPage('onboarding1');
@@ -131,7 +137,44 @@ function App() {
   };
 
   const handleBackToTimeMachine = () => {
+    if (buttonsLocked) return;
     setCurrentPage('timemachine');
+  };
+
+  const handleChangeToAlternative = () => {
+    setCurrentPage('egemen-bilmiyordu');
+  };
+
+  const handleNextToNewPage = () => {
+    setCurrentPage('next-page');
+    setNoButtonClicks(0);
+    setIsHeartBroken(false);
+    setButtonsLocked(false);
+  };
+
+  const handleNoButtonClick = () => {
+    if (buttonsLocked) return;
+    
+    if (noButtonClicks < 4) {
+      setNoButtonClicks(prev => prev + 1);
+      setIsShaking(true);
+      setTimeout(() => {
+        setIsShaking(false);
+      }, 500);
+    } else if (noButtonClicks === 4) {
+      setNoButtonClicks(prev => prev + 1);
+      setIsShaking(true);
+      setIsHeartBroken(true);
+      setButtonsLocked(true);
+      setTimeout(() => {
+        setIsShaking(false);
+      }, 500);
+      setTimeout(() => {
+        setButtonsLocked(false);
+      }, 4000);
+    } else {
+      handleBackToTimeMachine();
+    }
   };
 
 
@@ -247,10 +290,138 @@ function App() {
         
         <button 
           className="change-button"
-          onClick={handleBackToTimeMachine}
+          onClick={handleChangeToAlternative}
         >
           Değiştir
         </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderEgemenBilmiyorduPage = () => (
+    <div className="fuar-gunu-page">
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rain of sunflowers */}
+      <div className="rain-container">
+        {sunflowerEmojis.map((sunflower, index) => (
+          <div
+            key={index}
+            className="rain-text sunflower-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            {sunflower}
+          </div>
+        ))}
+      </div>
+
+      <div className="fuar-gunu-content">
+        <h1 className="fuar-gunu-title">Egemen bunu bilmiyordu</h1>
+        <div className="fuar-gunu-text">
+          <p>Egemen bencillik etmişti. Buse'nin kıskandığını bilmiyordu. O dümdüz siklemediğini düşünmüştü. Ders seçimi gibi Buse için önemli bir olayın haberini alamadığı için kızgın ve kırgındı.</p>
+          
+          <p>Buse'nin kıskandığı için tavır aldığını fark eden Egemen, o gece eve geldiğinde "iyi geceler" yazmaz. Hissettiklerini anlatır ve Buse ile konuşur. Sorunu halleden çift yoluna devam eder.</p>
+        </div>
+        
+        <button 
+          className="change-button"
+          onClick={handleNextToNewPage}
+        >
+          İlerle
+        </button>
+      </div>
+
+      {/* Quotes section */}
+      <div className="quotes-section" onClick={handleQuoteClick}>
+        <div className="quote-container">
+          <p className="quote-text">{quotes[currentQuoteIndex]}</p>
+          <p className="quote-hint">Tıklayarak değiştir</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderNextPage = () => (
+    <div className={`fuar-gunu-page ${isShaking ? 'shaking' : ''}`}>
+      {/* Info button */}
+      <button className="info-button" onClick={handleInfoClick}>
+        <div className="info-icon">
+          <div className="info-circle">i</div>
+        </div>
+      </button>
+
+      {/* Info modal */}
+      {showInfo && (
+        <div className="info-modal-overlay" onClick={closeInfo}>
+          <div className="info-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeInfo}>×</button>
+            <div className="info-text">
+              <ul className="info-list">
+                <li>Slm, bu farklı sonları olan bir mini oyun ama zaman makinesi gibi takılabilirsin.</li>
+                <li>Ayrıca Block Blast'ten çok daha iyi</li>
+                <li>Biraz metin tabanlı ama umarım seversin</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fuar-gunu-content">
+        <div className="heart-container">
+          <div className={`big-heart ${isHeartBroken ? 'broken' : ''}`}>
+            {isHeartBroken ? '💔' : '❤️'}
+          </div>
+        </div>
+        <h1 className="fuar-gunu-title">Barıştık mı? :)</h1>
+        <h2 className="fuar-gunu-subtitle">Bu kadar basit değil biliyorum...</h2>
+        
+        <div className="button-container">
+          <button 
+            className="yes-button"
+            onClick={handleBackToTimeMachine}
+          >
+            EVET
+          </button>
+          <button 
+            className="no-button"
+            onClick={handleNoButtonClick}
+          >
+            HAYIR
+          </button>
+        </div>
       </div>
 
       {/* Quotes section */}
@@ -417,6 +588,10 @@ function App() {
               {currentPage === 'timemachine' && renderTimeMachinePage()}
 
               {currentPage === 'fuar-gunu' && renderFuarGunuPage()}
+
+              {currentPage === 'egemen-bilmiyordu' && renderEgemenBilmiyorduPage()}
+
+              {currentPage === 'next-page' && renderNextPage()}
             </div>
           );
         }
